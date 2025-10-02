@@ -51,6 +51,18 @@ public class Pokemon {
         return name;
     }
 
+    public List<String> getType() {
+        return type;
+    }
+
+    public Map<String, Integer> getStats() {
+        return stats;
+    }
+
+    public List<Map<String, String>> getMoves() {
+        return moves;
+    }
+
     @Override
     public String toString() {
         return getId().toString() + ": " + getName();
