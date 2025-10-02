@@ -37,12 +37,15 @@ public class PokemonJSONHandler implements StorageHandler{
         List<String> type = (rawPokemon.get("type") instanceof List) ? (List<String>) rawPokemon.get("type") : new ArrayList<>(List.of((String) rawPokemon.get("type")));
         String ability = (String) rawPokemon.get("ability");
         Long exp = Long.parseLong((String) rawPokemon.get("exp"));
-        Map<String, Integer> stats = (Map<String, Integer>) rawPokemon.get("stats");
+        Map<String, Integer> stats = ((Map<String, String>) rawPokemon.get("stats")).entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, valor -> Integer.parseInt(valor.getValue().toString())));
 
         List<Map<String, String>> evolutions = (ArrayList<Map<String, String>>) ((Map<String, Object>) rawPokemon.get("evolutions")).get("evolution");
 
 
-        Map<String, Double> ratio = (Map<String, Double>) rawPokemon.get("ratio");
+        Map<String, Double> ratio = ((Map<String, String>) rawPokemon.get("ratio")).entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, valor -> Double.parseDouble(valor.getValue().toString())));
+
         List<String> eggGroup = (rawPokemon.get("egg-group") instanceof List) ? (List<String>) rawPokemon.get("egg-group") : new ArrayList<>(List.of((String) rawPokemon.get("egg-group")));
         String species = (String) rawPokemon.get("species");
         Double height = Double.parseDouble((String) rawPokemon.get("height"));
