@@ -8,5 +8,5 @@ import java.util.List;
 public interface PokemonRepository {
 
     void loadPokemons(String filepath) throws IOException;
-    List<Pokemon> getPokemonList() throws Exception;
+    List<Pokemon> getPokemonList();
 }

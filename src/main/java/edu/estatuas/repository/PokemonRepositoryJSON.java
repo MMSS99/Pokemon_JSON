@@ -18,12 +18,17 @@ public class PokemonRepositoryJSON implements PokemonRepository {
     }
 
     @Override
-    public List<Pokemon> getPokemonList() throws Exception{
-        if (pokemonList == null) {
-            Exception e = new Exception("No hay lista de pokemons cargada!");
-            throw e;
-        } else {
-            return pokemonList;
+    public List<Pokemon> getPokemonList(){
+
+        try {
+            if (pokemonList == null) {
+                Exception e = new Exception("No hay lista de pokemons cargada!");
+                throw e;
+            } else {
+                return pokemonList;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
