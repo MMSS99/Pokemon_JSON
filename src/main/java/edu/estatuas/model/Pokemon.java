@@ -42,4 +42,17 @@ public class Pokemon {
         this.moves = moves;
 
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return getId().toString() + ": " + getName();
+    }
 }
