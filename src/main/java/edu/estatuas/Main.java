@@ -1,7 +1,17 @@
 package edu.estatuas;
 
+import edu.estatuas.storage.PokemonJSONHandler;
+import edu.estatuas.storage.StorageHandler;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+
+        StorageHandler storage = new PokemonJSONHandler();
+
+        try {
+            storage.readFromFile("./data/pokemon.json");
+        } catch (Exception e) { e.printStackTrace(); }
+
+
     }
 }
