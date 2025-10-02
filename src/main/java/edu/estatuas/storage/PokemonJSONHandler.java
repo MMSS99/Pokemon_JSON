@@ -43,7 +43,7 @@ public class PokemonJSONHandler implements StorageHandler{
 
 
         Map<String, Double> ratio = (Map<String, Double>) rawPokemon.get("ratio");
-        List<String> eggGroup = (List<String>) rawPokemon.get("eggGroup");
+        List<String> eggGroup = (rawPokemon.get("egg-group") instanceof List) ? (List<String>) rawPokemon.get("egg-group") : new ArrayList<>(List.of((String) rawPokemon.get("egg-group")));
         String species = (String) rawPokemon.get("species");
         Double height = Double.parseDouble((String) rawPokemon.get("height"));
         Double weight = Double.parseDouble((String) rawPokemon.get("weight"));
