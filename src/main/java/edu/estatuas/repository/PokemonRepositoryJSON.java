@@ -30,5 +30,7 @@ public class PokemonRepositoryJSON implements PokemonRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return null;
     }
 }
