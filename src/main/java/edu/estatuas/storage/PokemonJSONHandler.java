@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,8 +44,14 @@ public class PokemonJSONHandler implements StorageHandler{
         List<Map<String, String>> evolutions = (ArrayList<Map<String, String>>) ((Map<String, Object>) rawPokemon.get("evolutions")).get("evolution");
 
 
-        Map<String, Double> ratio = ((Map<String, String>) rawPokemon.get("ratio")).entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, valor -> Double.parseDouble(valor.getValue().toString())));
+        Map<String, Double> ratio;
+        try {
+            ratio = ((Map<String, String>) rawPokemon.get("ratio")).entrySet().stream()
+                    .collect(Collectors.toMap(Map.Entry::getKey, valor -> Double.parseDouble(valor.getValue().toString())));
+        } catch (NullPointerException e) {
+            ratio = new HashMap<>();
+            ratio.put("Unisex", 100d);
+        }
 
         List<String> eggGroup = (rawPokemon.get("egg-group") instanceof List) ? (List<String>) rawPokemon.get("egg-group") : new ArrayList<>(List.of((String) rawPokemon.get("egg-group")));
         String species = (String) rawPokemon.get("species");
