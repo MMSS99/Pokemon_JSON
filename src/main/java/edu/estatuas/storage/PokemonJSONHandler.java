@@ -2,6 +2,8 @@ package edu.estatuas.storage;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.estatuas.model.Evolution;
+import edu.estatuas.model.Move;
 import edu.estatuas.model.Pokemon;
 
 import java.io.IOException;
@@ -41,9 +43,9 @@ public class PokemonJSONHandler implements StorageHandler{
         Map<String, Integer> stats = ((Map<String, String>) rawPokemon.get("stats")).entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, valor -> Integer.parseInt(valor.getValue().toString())));
 
-        List<Map<String, String>> evolutions = (ArrayList<Map<String, String>>) ((Map<String, Object>) rawPokemon.get("evolutions")).get("evolution");
 
 
+        // ratio puede no existir???
         Map<String, Double> ratio;
         try {
             ratio = ((Map<String, String>) rawPokemon.get("ratio")).entrySet().stream()
@@ -58,7 +60,48 @@ public class PokemonJSONHandler implements StorageHandler{
         Double height = Double.parseDouble((String) rawPokemon.get("height"));
         Double weight = Double.parseDouble((String) rawPokemon.get("weight"));
         String description = (String) rawPokemon.get("description");
-        List<Map<String, String>> moves = (List<Map<String, String>>) ((Map<String, Object>) rawPokemon.get("moves")).get("move");
+
+        // objeto evoluciones
+        List<Map<String, String>> evolutionList = (ArrayList<Map<String, String>>) ((Map<String, Object>) rawPokemon.get("evolutions")).get("evolution");
+        List<Evolution> evolutions = new ArrayList<>();
+        for (Map<String, String> rawEvolution : evolutionList) {
+            Evolution evolutionInstance;
+            if (rawEvolution.size() == 2){
+                evolutionInstance = new Evolution(
+                        Integer.parseInt(rawEvolution.get("_id")),
+                        rawEvolution.get("name")
+                );
+            } else {
+                evolutionInstance = new Evolution(
+                        Integer.parseInt(rawEvolution.get("_id")),
+                        rawEvolution.get("name"),
+                        Integer.parseInt(rawEvolution.get("level"))
+                );
+            }
+            evolutions.add(evolutionInstance);
+        }
+
+        //objeto movimientos
+        List<Map<String, String>> moveList = (List<Map<String, String>>) ((Map<String, Object>) rawPokemon.get("moves")).get("move");
+        List<Move> moves = new ArrayList<>();
+        for (Map<String, String> rawMove : moveList) {
+            Move moveInstance;
+            if (rawMove.size() == 3){
+                moveInstance = new Move(
+                        rawMove.get("name"),
+                        Integer.parseInt(rawMove.get("lvl")),
+                        rawMove.get("type")
+                );
+            } else {
+                moveInstance = new Move(
+                        rawMove.get("name"),
+                        Integer.parseInt(rawMove.get("lvl")),
+                        rawMove.get("type"),
+                        rawMove.get("machine")
+                );
+            }
+            moves.add(moveInstance);
+        }
 
         return new Pokemon(id, name, type, ability, exp, stats, evolutions, ratio, eggGroup, species, height, weight, description, moves);
     }
