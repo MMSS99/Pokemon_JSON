@@ -18,5 +18,17 @@ public class Evolution {
         this.name = name;
         this.level = Optional.of(level);
     }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Optional<Integer> getLevel() {
+        return level;
+    }
 }
 

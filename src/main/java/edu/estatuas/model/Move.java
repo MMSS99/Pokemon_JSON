@@ -20,6 +20,22 @@ public class Move {
         this.type = type;
         this.machine = Optional.of(machine);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Optional<String> getMachine() {
+        return machine;
+    }
 }
 
 
