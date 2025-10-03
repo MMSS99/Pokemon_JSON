@@ -75,7 +75,7 @@ public class PokemonJSONHandler implements StorageHandler{
                 evolutionInstance = new Evolution(
                         Integer.parseInt(rawEvolution.get("_id")),
                         rawEvolution.get("name"),
-                        Integer.parseInt(rawEvolution.get("level"))
+                        Integer.parseInt(rawEvolution.get("lvl"))
                 );
             }
             evolutions.add(evolutionInstance);
@@ -86,17 +86,22 @@ public class PokemonJSONHandler implements StorageHandler{
         List<Move> moves = new ArrayList<>();
         for (Map<String, String> rawMove : moveList) {
             Move moveInstance;
-            if (rawMove.size() == 3){
+            if (rawMove.size() == 2){
+                moveInstance = new Move(
+                        rawMove.get("name"),
+                        rawMove.get("_type")
+                );
+            } else if (rawMove.size() == 3){
                 moveInstance = new Move(
                         rawMove.get("name"),
                         Integer.parseInt(rawMove.get("lvl")),
-                        rawMove.get("type")
+                        rawMove.get("_type")
                 );
             } else {
                 moveInstance = new Move(
                         rawMove.get("name"),
                         Integer.parseInt(rawMove.get("lvl")),
-                        rawMove.get("type"),
+                        rawMove.get("_type"),
                         rawMove.get("machine")
                 );
             }
