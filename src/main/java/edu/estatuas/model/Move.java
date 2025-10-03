@@ -4,19 +4,23 @@ import java.util.Optional;
 
 public class Move {
     private String name;
-    private Integer level;
+    private Optional<Integer> level = Optional.empty();
     private String type;
     private Optional<String> machine =  Optional.empty();
 
+    public Move(String name, String type){
+
+    }
+
     public Move(String name, Integer level, String type) {
         this.name = name;
-        this.level = level;
+        this.level = Optional.of(level);
         this.type = type;
     }
 
     public Move(String name, Integer level, String type, String machine) {
         this.name = name;
-        this.level = level;
+        this.level = Optional.of(level);
         this.type = type;
         this.machine = Optional.of(machine);
     }
@@ -26,7 +30,7 @@ public class Move {
     }
 
     public Integer getLevel() {
-        return level;
+        return level.isPresent() ? level.get() : 0;
     }
 
     public String getType() {
@@ -34,7 +38,7 @@ public class Move {
     }
 
     public Optional<String> getMachine() {
-        return machine;
+        return machine.isPresent() ? machine : Optional.empty();
     }
 }
 
