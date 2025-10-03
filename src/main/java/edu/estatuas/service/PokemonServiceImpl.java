@@ -1,5 +1,6 @@
 package edu.estatuas.service;
 
+import edu.estatuas.model.Move;
 import edu.estatuas.repository.PokemonRepository;
 import edu.estatuas.storage.StorageHandler;
 
@@ -33,7 +34,7 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public void printAllMoveLearneable(String move){
         pokemonRepository.getPokemonList().stream().filter(pokemon -> pokemon.getMoves()
-                .stream().map(moveEntrance -> moveEntrance.get("name")).toList().contains(move))
+                .stream().map(Move::getName).toList().contains(move))
                 .forEach(System.out::println);
 
     }
