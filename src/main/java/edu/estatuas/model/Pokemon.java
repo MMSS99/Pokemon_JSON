@@ -12,19 +12,19 @@ public class Pokemon {
     private String ability;
     private Long exp;
     private Map<String, Integer> stats;
-    private List<Map<String, String>> evolutions;
+    private List<Evolution> evolutions;
     private Map<String, Double> ratio;
     private List<String> eggGroup;
     private String species;
     private Double height;
     private Double weight;
     private String description;
-    private List<Map<String, String>> moves;
+    private List<Move> moves;
 
     public Pokemon(
             Integer id, String name, List<String> type, String ability, Long exp, Map<String, Integer> stats,
-            List<Map<String, String>> evolutions, Map<String, Double> ratio, List<String> eggGroup, String species,
-            Double height, Double weight, String description, List<Map<String, String>> moves
+            List<Evolution> evolutions, Map<String, Double> ratio, List<String> eggGroup, String species,
+            Double height, Double weight, String description, List<Move> moves
     ) {
         this.id = id;
         this.name = name;
@@ -59,7 +59,7 @@ public class Pokemon {
         return stats;
     }
 
-    public List<Map<String, String>> getMoves() {
+    public List<Move> getMoves() {
         return moves;
     }
 
